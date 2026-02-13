@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://openweathermap.org data:;">
+    <title>Weather</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<div class="widget">
+    <form action="/" method="GET" class="search-box">
+        <input type="text" name="city" placeholder="Search city..." autocomplete="off">
+        <button type="submit">🔍</button>
+    </form>
+
+    <% if (weather) { %>
+        <div class="weather-content">
+            <h2 class="city"><%= weather.name %></h2>
+            <p class="desc"><%= weather.weather[0].description %></p>
+            
+            <h1 class="temp"><%= Math.round(weather.main.temp) %>°</h1>
+
+            <div class="details">
+                <div class="col">
+                    <p><%= weather.main.humidity %>%</p>
+                    <span>Humidity</span>
+                </div>
+                <div class="col">
+                    <p><%= Math.round(weather.wind.speed) %> km/h</p>
+                    <span>Wind</span>
+                </div>
+                <div class="col">
+                    <p><%= Math.round(weather.main.feels_like) %>°</p>
+                    <span>Feels Like</span>
+                </div>
+            </div>
+        </div>
+    <% } else if (error) { %>
+        <p style="color: #e17055; margin-top: 20px;"><%= error %></p>
+    <% } %>
+</div>
+
+</body>
+</html>
