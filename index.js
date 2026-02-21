@@ -6,6 +6,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 app.set("view engine", "ejs");
 
@@ -13,7 +14,6 @@ app.get("/", async (req, res) => {
   const { city, lat, lon } = req.query;
   const apiKey = process.env.WEATHER_API_KEY;
 
-  // Build URL based on what data we have
   let url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}`;
 
   if (city) {
